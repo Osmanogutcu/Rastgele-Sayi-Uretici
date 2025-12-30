@@ -1,52 +1,48 @@
 # Rastgele-Sayi-Uretici
-Hazır kütüphaneler kullanmadan sözde rastgele sayı üretim mantığını göstermek için C# ile yazılmış özel bir LCG algoritması uygulaması
-# GÖLGE-128 (Shadow-128) Şifreleme Algoritması
+# 🌑 GÖLGE-128 (Shadow-128)
 
-[cite_start]Bu proje, **GÖLGE-128 (Shadow-128)** adı verilen özel tasarım bir blok şifreleme algoritmasının C# dili ile gerçekleştirilmiş referans uygulamasıdır[cite: 3].
+> **"Gölge, gerçeği takip eder ama asla ele vermez."**
 
-[cite_start]Algoritma, **SPN (Substitution-Permutation Network)** mimarisi üzerine kuruludur ve hız ile güvenlik dengesi gözetilerek tasarlanmıştır[cite: 5].
+**GÖLGE-128**, SPN (Substitution-Permutation Network) mimarisi üzerine kurgulanmış, modern blok şifreleme prensiplerini gösteren akademik bir kriptografi projesidir. Standart S-Box tabloları yerine işlemci dostu matematiksel dönüşümler kullanır.
 
-## 📋 Proje Hakkında
-[cite_start]Bu çalışma, kriptografik tasarım prensipleri olan **Karıştırma (Confusion)** ve **Yayılma (Diffusion)** ilkelerinin yazılım tabanlı simülasyonunu amaçlar[cite: 9, 11]. [cite_start]Standart AES yapısına benzemekle birlikte, işlemci gücünü verimli kullanmak adına S-Box tabloları yerine matematiksel fonksiyonlar kullanılmıştır[cite: 28].
+---
 
-## ⚙️ Teknik Özellikler
-* [cite_start]**Blok Boyutu:** 128-bit (16 Byte) [cite: 17]
-* [cite_start]**Anahtar Boyutu:** 128-bit [cite: 13]
-* [cite_start]**Tur Sayısı (Rounds):** 10 Tur [cite: 15]
-* [cite_start]**Mimari:** SPN (Substitution Permutation Network) [cite: 5]
-* **Dil:** C# (.NET Core / Framework)
+## 🛠 Teknik Özellikler
 
-## 🧮 Algoritma Mantığı
-[cite_start]GÖLGE-128, her turda aşağıdaki 3 temel katmanı uygular [cite: 38-44]:
+| Özellik | Değer |
+| :--- | :--- |
+| **Algoritma Türü** | Simetrik Blok Şifreleme (SPN) |
+| **Blok Boyutu** | 128-Bit (16 Byte) |
+| **Anahtar Uzunluğu** | 128-Bit |
+| **Tur Sayısı** | 10 Tur (Rounds) |
+| **Dil** | Python 3.x |
 
-### 1. Anahtar Karıştırma (AddRoundKey)
-[cite_start]Veri bloğu, o tur için üretilen tur anahtarı (Round Key) ile XOR işlemine tabi tutulur[cite: 42].
+## 🧮 Algoritma Mimarisi
 
-### 2. İkame Katmanı (SubBytes - Non-Linear)
-[cite_start]Klasik bellek tabanlı S-Box yerine, her byte ($b$) için aşağıdaki doğrusal olmayan matematiksel dönüşüm uygulanır[cite: 29]:
+Bu algoritma, Claude Shannon'un **Karıştırma (Confusion)** ve **Yayılma (Diffusion)** ilkelerine dayanarak tasarlanmıştır.
 
-$$S(b) = (b \times 5 + 13) \mod 256$$
+### 1. İkame Katmanı (SubBytes) - *Karıştırma*
+[cite_start]Bellek harcayan statik S-Box tabloları yerine, her byte ($b$) için aşağıdaki doğrusal olmayan (non-linear) fonksiyon kullanılır [cite: 26-29]:
 
-[cite_start]Bu işlem sistemin **Karıştırma (Confusion)** özelliğini sağlar[cite: 30].
+$$S(b) = (b \times 5 + 13) \pmod{256}$$
 
-### 3. Permütasyon Katmanı (ShiftRows - Linear)
-[cite_start]16 byte'lık veri 4x4 matris olarak düşünülür ve satırlar sola kaydırılır[cite: 32]:
-* **1. [cite_start]Satır:** Sabit [cite: 33]
-* **2. [cite_start]Satır:** 1 Byte sola [cite: 34]
-* **3. [cite_start]Satır:** 2 Byte sola [cite: 35]
-* **4. [cite_start]Satır:** 3 Byte sola [cite: 36]
+### 2. Permütasyon Katmanı (ShiftRows) - *Yayılma*
+[cite_start]16 Byte'lık veri bloğu 4x4 matris olarak işlenir ve satırlar sola kaydırılır [cite: 31-36]:
+* **1. Satır:** Sabit (Kaydırma yok)
+* **2. Satır:** 1 Byte Sola
+* **3. Satır:** 2 Byte Sola
+* **4. Satır:** 3 Byte Sola
 
-[cite_start]Bu işlem sistemin **Yayılma (Diffusion)** özelliğini sağlar[cite: 37].
+### 3. Anahtar Genişletme (Key Schedule)
+Ana anahtardan 10 adet farklı tur anahtarı üretilir. [cite_start]Her yeni anahtar, bir öncekinin **sola 3 bit kaydırılıp** (rotate) tur sayacı ile **XOR** lanmasıyla elde edilir [cite: 23-25].
+
+---
 
 ## 🚀 Kurulum ve Çalıştırma
 
-1. Projeyi klonlayın veya indirin.
-2. `.sln` dosyasını **Visual Studio** ile açın.
-3. `Program.cs` dosyasını derleyin ve çalıştırın.
-4. Konsol ekranında şifrelenmiş metnin Hex çıktısını görebilirsiniz.
+Bu projeyi çalıştırmak için bilgisayarınızda **Python 3** yüklü olmalıdır.
 
-## ⚠️ Yasal Uyarı
-Bu proje **eğitim ve akademik araştırma** amacıyla geliştirilmiştir. Kriptografik olarak askeri veya ticari düzeyde güvenlik garantisi vermez. Gerçek dünyadaki hassas verilerin korunması için AES gibi standart algoritmalar kullanılmalıdır.
-
----
-*Geliştirici: [Osman Kerim Ögütçü]*
+1. **Repoyu Klonlayın:**
+   ```bash
+   git clone [https://github.com/Osmanogutcu/GOLGE-128.git](https://github.com/Osmanogutcu/GOLGE-128.git)
+   cd GOLGE-128
