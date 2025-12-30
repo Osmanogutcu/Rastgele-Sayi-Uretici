@@ -1,48 +1,54 @@
 # Rastgele-Sayi-Uretici
-# 🌑 GÖLGE-128 (Shadow-128)
+# 🌑 GÖLGE-128 (Shadow-128) Şifreleme Algoritması
 
-> **"Gölge, gerçeği takip eder ama asla ele vermez."**
+> **"Kriptografik Algoritma Geliştirme ve Analizi Projesi"**
 
-**GÖLGE-128**, SPN (Substitution-Permutation Network) mimarisi üzerine kurgulanmış, modern blok şifreleme prensiplerini gösteren akademik bir kriptografi projesidir. Standart S-Box tabloları yerine işlemci dostu matematiksel dönüşümler kullanır.
+Bu proje, **GÖLGE-128 (Shadow-128)** adı verilen özgün bir blok şifreleme algoritmasının tasarımını, Python ile uygulanmasını ve güvenlik analizini kapsar. Algoritma, SPN (Substitution-Permutation Network) mimarisi üzerine kurgulanmıştır.
 
 ---
+
+## 📋 Proje Özeti (Deney Föyü Kapsamı)
+
+Bu çalışma 3 ana aşamadan oluşmaktadır:
+1.  **Tasarım:** Algoritmanın matematiksel modelinin ve akış şemasının oluşturulması.
+2.  **Kodlama:** Tasarımın Python dili ile `Sifrele` ve `Desifrele` fonksiyonlarına dökülmesi.
+3.  **Analiz (Kırılma):** Algoritmanın zayıf yönlerinin (Kriptanaliz) test edilmesi.
 
 ## 🛠 Teknik Özellikler
 
 | Özellik | Değer |
 | :--- | :--- |
-| **Algoritma Türü** | Simetrik Blok Şifreleme (SPN) |
+| **Algoritma Tipi** | Simetrik Blok Şifreleme (SPN) |
 | **Blok Boyutu** | 128-Bit (16 Byte) |
-| **Anahtar Uzunluğu** | 128-Bit |
+| **Anahtar Boyutu** | 128-Bit |
 | **Tur Sayısı** | 10 Tur (Rounds) |
-| **Dil** | Python 3.x |
+| **Dil** | Python 3 |
 
-## 🧮 Algoritma Mimarisi
+## 🧮 Algoritma Mantığı
 
-Bu algoritma, Claude Shannon'un **Karıştırma (Confusion)** ve **Yayılma (Diffusion)** ilkelerine dayanarak tasarlanmıştır.
+Algoritma, Shannon'un **Karıştırma (Confusion)** ve **Yayılma (Diffusion)** ilkelerini sağlamak için her turda şu 3 temel işlemi uygular:
 
-### 1. İkame Katmanı (SubBytes) - *Karıştırma*
-[cite_start]Bellek harcayan statik S-Box tabloları yerine, her byte ($b$) için aşağıdaki doğrusal olmayan (non-linear) fonksiyon kullanılır [cite: 26-29]:
-
+### 1. İkame Katmanı (SubBytes)
+Her byte ($b$) için doğrusal olmayan matematiksel bir dönüşüm uygulanır. Bu işlem S-Box görevi görür:
 $$S(b) = (b \times 5 + 13) \pmod{256}$$
 
-### 2. Permütasyon Katmanı (ShiftRows) - *Yayılma*
-[cite_start]16 Byte'lık veri bloğu 4x4 matris olarak işlenir ve satırlar sola kaydırılır [cite: 31-36]:
-* **1. Satır:** Sabit (Kaydırma yok)
+### 2. Permütasyon Katmanı (ShiftRows)
+16 Byte'lık veri bloğu 4x4 matris olarak düşünülür ve satırlar sola kaydırılarak bitlerin dağılması sağlanır:
+* **1. Satır:** Sabit
 * **2. Satır:** 1 Byte Sola
 * **3. Satır:** 2 Byte Sola
 * **4. Satır:** 3 Byte Sola
 
 ### 3. Anahtar Genişletme (Key Schedule)
-Ana anahtardan 10 adet farklı tur anahtarı üretilir. [cite_start]Her yeni anahtar, bir öncekinin **sola 3 bit kaydırılıp** (rotate) tur sayacı ile **XOR** lanmasıyla elde edilir [cite: 23-25].
+Ana anahtardan 10 adet tur anahtarı üretilir. Her turda anahtar **sola 3 bit kaydırılır (rotate)** ve tur sayacı ile XOR işlemine girer.
 
 ---
 
-## 🚀 Kurulum ve Çalıştırma
+## 🚀 Kurulum ve Kullanım
 
-Bu projeyi çalıştırmak için bilgisayarınızda **Python 3** yüklü olmalıdır.
+Proje dosyası `golge128_final.py` içerisinde hem şifreleme/deşifreleme fonksiyonları hem de otomatik test senaryoları bulunur.
 
-1. **Repoyu Klonlayın:**
-   ```bash
-   git clone [https://github.com/Osmanogutcu/GOLGE-128.git](https://github.com/Osmanogutcu/GOLGE-128.git)
-   cd GOLGE-128
+### 1. Çalıştırma
+Python yüklü bir terminalde şu komutu girin:
+```bash
+python golge128_final.py
