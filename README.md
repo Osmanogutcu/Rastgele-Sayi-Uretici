@@ -4,9 +4,9 @@
 > **"Kriptografik Algoritma Geliştirme ve Analizi Projesi"**
 
 Bu proje, **GÖLGE-128 (Shadow-128)** adı verilen özgün bir blok şifreleme algoritmasının tasarımını, Python ile uygulanmasını ve güvenlik analizini kapsar. Algoritma, SPN (Substitution-Permutation Network) mimarisi üzerine kurgulanmıştır.
-
+Şifreli Veri (Hex):75A1FEECCA37DB694C09DB4C2D587E88
 ---
-
+Geliştirici:Osman Kerim Ögütçü
 ## 📋 Proje Özeti (Deney Föyü Kapsamı)
 
 Bu çalışma 3 ana aşamadan oluşmaktadır:
