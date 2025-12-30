@@ -1,12 +1,12 @@
 # Rastgele-Sayi-Uretici
-# 🌑 GÖLGE-128 (Shadow-128) Şifreleme Algoritması
+# 🏰 KALE-128 (Castle-128) Şifreleme Algoritması
 
 > **"Kriptografik Algoritma Geliştirme ve Analizi Projesi"**
 
-Bu proje, **GÖLGE-128 (Shadow-128)** adı verilen özgün bir blok şifreleme algoritmasının tasarımını, Python ile uygulanmasını ve güvenlik analizini kapsar. Algoritma, SPN (Substitution-Permutation Network) mimarisi üzerine kurgulanmıştır.
+Bu proje, **KALE-128** adı verilen özgün bir blok şifreleme algoritmasının tasarımını, Python ile uygulanmasını ve güvenlik analizini kapsar. Algoritma, SPN (Substitution-Permutation Network) mimarisi üzerine kurgulanmıştır ve veri güvenliğinde "kale" gibi sağlam bir yapı oluşturmayı hedefler.
 
 ---
-Geliştirici:Osman Kerim Ögütçü
+
 ## 📋 Proje Özeti (Deney Föyü Kapsamı)
 
 Bu çalışma 3 ana aşamadan oluşmaktadır:
@@ -23,7 +23,7 @@ Bu çalışma 3 ana aşamadan oluşmaktadır:
 | **Anahtar Boyutu** | 128-Bit |
 | **Tur Sayısı** | 10 Tur (Rounds) |
 | **Dil** | Python 3 |
-## Şifreli Veri (Hex):75A1FEECCA37DB694C09DB4C2D587E88
+
 ## 🧮 Algoritma Mantığı
 
 Algoritma, Shannon'un **Karıştırma (Confusion)** ve **Yayılma (Diffusion)** ilkelerini sağlamak için her turda şu 3 temel işlemi uygular:
@@ -41,14 +41,14 @@ $$S(b) = (b \times 5 + 13) \pmod{256}$$
 
 ### 3. Anahtar Genişletme (Key Schedule)
 Ana anahtardan 10 adet tur anahtarı üretilir. Her turda anahtar **sola 3 bit kaydırılır (rotate)** ve tur sayacı ile XOR işlemine girer.
-
+Şifreli Veri (Hex):75A1FEECCA37DB694C09DB4C2D587E88
 ---
 
 ## 🚀 Kurulum ve Kullanım
 
-Proje dosyası `golge128_final.py` içerisinde hem şifreleme/deşifreleme fonksiyonları hem de otomatik test senaryoları bulunur.
+Proje dosyası `kale128.py` içerisinde hem şifreleme/deşifreleme fonksiyonları hem de otomatik test senaryoları bulunur.
 
 ### 1. Çalıştırma
 Python yüklü bir terminalde şu komutu girin:
 ```bash
-python golge128_final.py
+python kale128.py
